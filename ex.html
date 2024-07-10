@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Add SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <title>Application of Regional II</title>
+</head>
+<body>
+
+  <div class="particles"></div>
+
+  <div class="menu-container" id="hamburger">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="menu" id="menu">
+    <a href="http://localhost:3000/about.html">About</a>
+  </div>
+
+  <header class="zindexes">
+    <a href="http://localhost:3000">
+      <img class="logo" src="assets/img/Logo_PTPN4.png" alt="">
+    </a>
+    <h1 align="center" class="text-light">RERGIONAL II APPLICATION</h1>
+    <h2 align="center" class="text-light">PT PERKEBUNAN NUSANTARA IV</h2>
+    <h3 align="center" class="text-light">Sub Bagian TI</h3>
+    <!-- Search Bar -->
+    <div class="search-bar mt-3 mb-3">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search applications...">
+    </div>
+  </header>
+
+
+  <!-- Application List Carousel -->
+  <main>
+    <div id="carouselExampleControls" class="carousel slide zindexes pb-4" data-bs-ride="carousel">
+      <div class="carousel-inner" id="appList">
+        <!-- Slides akan ditampilkan di sini -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright © PTPN4 REGIONALII</p>
+    <p><span>2024</span> - <span>2025</span></p>
+  </footer>
+
+  <!-- Optional JavaScript; choose one of the two! -->
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+      -->
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  
+  <!-- Particle -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.6/tsparticles.bundle.min.js"></script>
+
+  <script src="assets/js/script.js"></script>
+
+  <script>
+    // Array of application data
+    const applications = [
+      {
+        name: 'APLIKASI RETAIL TEH',
+        description: 'Aplikasi Retail teh adalah aplikasi dashboard untuk menampilkan data teh produksi, penjualan dll',
+        pengguna: 'Regional II',
+        link: 'https://www.ptpn4apps.id/ptpn4_teh/public/',
+        image: 'assets/img/apps/app-teh.png',
+        tahun:'2024',
+      },
+      {
+        name: 'APLIKASI DOCTRACE',
+        description: 'Aplikasi Doctrace adalah aplikasi dashboard untuk data RKAP, Norma, dll pada Pabrik Kelapa Sawit',
+        pengguna: 'Regional II',
+        link: 'https://www.ptpn4apps.id/ptpn4_teh/public/',
+        image: 'assets/img/apps/app-doctrace.png',
+        tahun:'2024',
+      },
+      {
+        name: 'APLIKASI PICA',
+        description: 'Aplikasi PICA adalah aplikasi untuk analisis dan kontrol produksi',
+        pengguna: 'HO',
+        link: 'https://www.ptpn4apps.id/ptpn4_teh/public/',
+        image: 'assets/img/apps/app-pica.png',
+        tahun:'2024',
+      },
+      // Tambahkan [Aplikasi] lainnya di sini
+    ];
+
+    // Fungsi untuk menampilkan aplikasi berdasarkan pencarian
+    function displayApplications(query) {
+      const appListContainer = document.getElementById('appList');
+      appListContainer.innerHTML = ''; // Mengosongkan daftar aplikasi
+
+      const filteredApps = applications.filter(app => app.name.toLowerCase().includes(query.toLowerCase()));
+      
+      // Split filteredApps into chunks of 9
+      const chunks = [];
+      for (let i = 0; i < filteredApps.length; i += 9) {
+        chunks.push(filteredApps.slice(i, i + 9));
+      }
+
+      chunks.forEach((chunk, index) => {
+        const isActive = index === 0 ? 'active' : '';
+        let appCards = '';
+
+        chunk.forEach(app => {
+          appCards += `
+            <div class="col">
+              <a class="link_card delayedLink" href="${app.link}" target="_blank" data-link="${app.link}">
+                <div class="card">
+                  <img class="thumbnail" src="${app.image}" alt="">
+                  <div class="overlay">
+                    <div class="info">
+                      <img class="logo-hover" src="assets/img/Logo_PTPN4.png" alt="">
+                      <p>${app.name}</p>
+                      <span>${app.description}</span>
+                      <div class="d-flex justify-content-between w-100">
+                          <div class="d-flex">
+                              <p class="text_tag">${app.pengguna}</p>
+                          </div>
+                          <div>
+                              <p class="text_tag">${app.tahun}</p>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        });
+
+        const slide = `
+          <div class="carousel-item ${isActive}">
+            <div class="container">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                ${appCards}
+              </div>
+            </div>
+          </div>
+        `;
+
+        appListContainer.innerHTML += slide;
+      });
+
+      // Add event listeners for SweetAlert
+      document.querySelectorAll('.link_card').forEach(card => {
+        card.addEventListener('click', function(event) {
+          event.preventDefault(); // Mencegah tindakan default tautan
+          
+          const link = this.getAttribute('data-link');
+          
+          // Menampilkan SweetAlert loading
+          Swal.fire({
+            title: 'Loading...',
+            text: 'Please wait while we prepare the page.',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
+          // Mensimulasikan penundaan untuk menyiapkan halaman tujuan
+          setTimeout(function() {
+            Swal.close(); // Menutup SweetAlert loading
+            window.open(link, '_blank'); // Membuka tautan di tab baru
+          }, 2000); // Penundaan 2 detik untuk simulasi
+        });
+      });
+    }
+
+    // Event listener untuk input pencarian
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const query = this.value;
+      displayApplications(query);
+    });
+
+    // Menampilkan semua aplikasi saat halaman pertama kali dimuat
+    displayApplications('');
+  </script>
+  
+</body>
+</html>
