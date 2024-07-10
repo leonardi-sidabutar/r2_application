@@ -33,19 +33,22 @@
     <a href="http://localhost:3000">
       <img class="logo" src="assets/img/Logo_PTPN4.png" alt="">
     </a>
-    <h1 align="center" class="text-light">RERGIONAL II APPLICATION</h1>
+    <h1 align="center" class="text-light">RERGIONAL 2 APPLICATIONS</h1>
     <h2 align="center" class="text-light">PT PERKEBUNAN NUSANTARA IV</h2>
-    <h3 align="center" class="text-light">Sub Bagian TI</h3>
+    <h3 align="center" class="text-light" style="margin-top:-10px;font-size:13px">Maintenance & Pengembangan Aplikasi - Sub Bagian TI</h3>
     <!-- Search Bar -->
     <div class="search-bar mt-3 mb-3">
-      <input type="text" id="searchInput" class="form-control" placeholder="Search applications...">
+      <input type="text" id="searchInput" style="color: #f3f3f3;" placeholder="Search applications...">
+      <div class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search text-light"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </div>
     </div>
   </header>
 
 
   <!-- Application List Carousel -->
   <main>
-    <div id="carouselExampleControls" class="carousel slide zindexes pb-4" data-bs-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide zindexes pb-5" data-bs-ride="carousel">
       <div class="carousel-inner" id="appList">
         <!-- Slides akan ditampilkan di sini -->
       </div>
@@ -57,6 +60,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
+      <ol class="carousel-indicators" id="carouselIndicators"></ol>
     </div>
   </main>
 
@@ -87,28 +91,34 @@
     // Array of application data
     const applications = [
       {
-        name: 'APLIKASI RETAIL TEH',
+        name: 'RETAIL TEH',
         description: 'Aplikasi Retail teh adalah aplikasi dashboard untuk menampilkan data teh produksi, penjualan dll',
         pengguna: 'Regional II',
         link: 'https://www.ptpn4apps.id/ptpn4_teh/public/',
         image: 'assets/img/apps/app-teh.png',
+        img_user:'assets/img/Logo_PTPN4.png',
         tahun:'2024',
+        type:'Dashboard',
       },
       {
-        name: 'APLIKASI DOCTRACE',
+        name: 'DOCTRACE',
         description: 'Aplikasi Doctrace adalah aplikasi dashboard untuk data RKAP, Norma, dll pada Pabrik Kelapa Sawit',
         pengguna: 'Regional II',
         link: 'https://www.ptpn4apps.id/doctrace/public/',
         image: 'assets/img/apps/app-doctrace.png',
+        img_user:'assets/img/Logo_PTPN4.png',
         tahun:'2024',
+        type:'Dashboard',
       },
       {
-        name: 'APLIKASI PICA',
+        name: 'PICA',
         description: 'Aplikasi PICA adalah aplikasi untuk analisis dan kontrol produksi',
         pengguna: 'HO',
         link: 'https://www.ptpn4apps.id/pica/public/',
         image: 'assets/img/apps/app-pica.png',
+        img_user:'assets/img/Logo_HO.png',
         tahun:'2024',
+        type:'Mobile',
       },
       // Tambahkan [Aplikasi] lainnya di sini
     ];
@@ -138,21 +148,30 @@
                   <img class="thumbnail" src="${app.image}" alt="">
                   <div class="overlay">
                     <div class="info">
-                      <img class="logo-hover" src="assets/img/Logo_PTPN4.png" alt="">
+                      <img class="logo-hover" src="${app.img_user}" alt="">
                       <p>${app.name}</p>
                       <span>${app.description}</span>
-                      <div class="d-flex justify-content-between w-100">
-                          <div class="d-flex">
-                              <p class="text_tag">${app.pengguna}</p>
+                      <div class="d-flex justify-content-between w-100 align-items-center">
+                          <div class="d-flex justify-content-center tag_user">
+                              <span>${app.pengguna}</span>
                           </div>
                           <div>
-                              <p class="text_tag">${app.tahun}</p>
+                              <p style='font-size:12px'>${app.tahun}</p>
                           </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </a>
+                  <div class='d-flex align-items-center justify-content-between' style='margin-right:10px;margin-left:10px;margin-top:-5px'>
+                    <div class='d-flex align-items-center'>
+                      <img class="logo_thumb" src="${app.img_user}" alt="">
+                      <span style='color:white;font-size:16px;letter-spacing:1px'>DASHBOARD <span style='font-weight:800'>${app.name}</span></span>
+                    </div>
+                    <div class='d-flex' style='background:#ffffff80;border-radius:20px;padding: 2px 7px'>
+                      <span style='font-size:11px;color:white;font-weight:bold'>${app.type}</span>
+                    </div>
+                  </div>
             </div>
           `;
         });
@@ -169,6 +188,16 @@
 
         appListContainer.innerHTML += slide;
       });
+
+      // Tambahkan indikator untuk setiap slide
+      const carouselIndicators = document.getElementById('carouselIndicators');
+      carouselIndicators.innerHTML = '';
+      for (let i = 0; i < chunks.length; i++) {
+        const indicator = `
+          <li data-bs-target="#carouselExampleControls" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></li>
+        `;
+        carouselIndicators.innerHTML += indicator;
+      }
 
       // Add event listeners for SweetAlert
       document.querySelectorAll('.link_card').forEach(card => {
